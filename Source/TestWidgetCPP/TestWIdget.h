@@ -23,16 +23,16 @@ class TESTWIDGETCPP_API UTestWIdget : public UUserWidget
     GENERATED_BODY()
 
 public:
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Test)
+    UPROPERTY(BlueprintReadWrite, Category = Test)
         UEditableText* Id;
 
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Test)
+    UPROPERTY(BlueprintReadWrite, Category = Test)
         UEditableText* Password;
 
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Test)
+    UPROPERTY(BlueprintReadWrite, Category = Test)
         FString FID;
 
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Test)
+    UPROPERTY(BlueprintReadWrite, Category = Test)
         FString FPassword;
 
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
@@ -44,5 +44,8 @@ public:
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
         void Login(const FText& Text, ETextCommit::Type CommitMethod);
 
-        void HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
+    UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
+        void SignUp(const FText& Text, ETextCommit::Type CommitMethod);
+
+    void HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
 };
