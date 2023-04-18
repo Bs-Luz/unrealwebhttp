@@ -5,20 +5,19 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/EditableText.h"
+#include "Components/Button.h"
 #include "Json.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
-#include "TestWIdget.generated.h"
+#include "TestWidget.generated.h"
 
 /**
  * 
  */
 
-//class UEditableText;
-
 UCLASS()
-class TESTWIDGETCPP_API UTestWIdget : public UUserWidget
+class TESTWIDGETCPP_API UTestWidget : public UUserWidget
 {
     GENERATED_BODY()
 
@@ -35,6 +34,12 @@ public:
     UPROPERTY(BlueprintReadWrite, Category = Test)
         FString FPassword;
 
+    /*UPROPERTY(BlueprintReadWrite, Category = Test)
+        UButton* LoginButton;
+
+    UPROPERTY(BlueprintReadWrite, Category = Test)
+        UButton* SignUpButton;*/
+
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
         void TestIDLog();
 
@@ -42,10 +47,10 @@ public:
         void TestPasswordLog();
 
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
-        void Login(const FText& Text, ETextCommit::Type CommitMethod);
+        void LoginButton(const FText& Text/*, ETextCommit::Type CommitMethod*/ );
 
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
-        void SignUp(const FText& Text, ETextCommit::Type CommitMethod);
+        void SignUpButton(const FText& Text/*, ETextCommit::Type CommitMethod*/ );
 
-    void HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
+        void HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
 };

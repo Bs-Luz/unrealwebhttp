@@ -1,19 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TestWIdget.h"
+#include "TestWidget.h"
 
-void UTestWIdget::TestIDLog()
+void UTestWidget::TestIDLog()
 {
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *FID);
 }
 
-void UTestWIdget::TestPasswordLog()
+void UTestWidget::TestPasswordLog()
 {
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *FPassword);
 }
 
-void UTestWIdget::Login(const FText& Text, ETextCommit::Type CommitMethod)
+void UTestWidget::LoginButton(const FText& Text/*const FText& Text, ETextCommit::Type CommitMethod*/)
 //{
 //    if (Id && Id->HasKeyboardFocus())
 //    {
@@ -71,13 +71,13 @@ void UTestWIdget::Login(const FText& Text, ETextCommit::Type CommitMethod)
     HttpRequest->SetContentAsString(JsonString);
 
     // Bind response function
-    HttpRequest->OnProcessRequestComplete().BindUObject(this, &UTestWIdget::HandleHttpRequestComplete);
+    HttpRequest->OnProcessRequestComplete().BindUObject(this, &UTestWidget::HandleHttpRequestComplete);
 
     // Send request
     HttpRequest->ProcessRequest();
 }
 
-void UTestWIdget::SignUp(const FText& Text, ETextCommit::Type CommitMethod)
+void UTestWidget::SignUpButton(const FText& Text/*const FText& Text, ETextCommit::Type CommitMethod*/)
 {
     // Id와 Password 입력값 저장
     if (Id && Id->HasKeyboardFocus())
@@ -107,36 +107,36 @@ void UTestWIdget::SignUp(const FText& Text, ETextCommit::Type CommitMethod)
     HttpRequest->SetContentAsString(JsonString);
 
     // 요청 완료 시 호출할 함수 설정
-    HttpRequest->OnProcessRequestComplete().BindUObject(this, &UTestWIdget::HandleHttpRequestComplete);
+    HttpRequest->OnProcessRequestComplete().BindUObject(this, &UTestWidget::HandleHttpRequestComplete);
 
     // 요청 전송
     HttpRequest->ProcessRequest();
 }
 
-void UTestWIdget::HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess)
+void UTestWidget::HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess)
 {
     if (bSuccess && Response.IsValid())
     {
         UE_LOG(LogTemp, Warning, TEXT("Response: %s"), *Response->GetContentAsString());
 
-        //// Convert response json to object
-        //TSharedPtr<FJsonObject> JsonObject;
-        //TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(Response->GetContentAsString());
-        //if (FJsonSerializer::Deserialize(JsonReader, JsonObject))
-        //{
-        //    // Get response fields
-        //    bool bLoginSuccess = JsonObject->GetBoolField("success");
-        //    FString message = JsonObject->GetStringField("message");
+        // Convert response json to object
+        TSharedPtr<FJsonObject> JsonObject;
+        TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(Response->GetContentAsString());
+        if (FJsonSerializer::Deserialize(JsonReader, JsonObject))
+        {
+            // Get response fields
+            bool bLoginSuccess = JsonObject->GetBoolField("success");
+            FString message = JsonObject->GetStringField("message");
 
-        //    if (bLoginSuccess)
-        //    {
-        //        UE_LOG(LogTemp, Warning, TEXT("Login success: %s"), *message);
-        //    }
-        //    else
-        //    {
-        //        UE_LOG(LogTemp, Warning, TEXT("Login failed: %s"), *message);
-        //    }
-        //}
+            if (bLoginSuccess)
+            {
+                UE_LOG(LogTemp, Warning, TEXT("Login success: %s"), *message);
+            }
+            else
+            {
+                UE_LOG(LogTemp, Warning, TEXT("Login failed: %s"), *message);
+            }
+        }
     }
     else
     {

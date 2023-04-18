@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "TestWidget.h"
 #include "TestWidgetCPPGameModeBase.generated.h"
 
 /**
@@ -17,5 +18,8 @@ class TESTWIDGETCPP_API ATestWidgetCPPGameModeBase : public AGameModeBase
 public:
 	ATestWidgetCPPGameModeBase();
 
+    //void ATestWidgetCPPGameModeBase::BeginPlay();
 
+	UPROPERTY()
+		UTestWidget* TestWidget;
 };
