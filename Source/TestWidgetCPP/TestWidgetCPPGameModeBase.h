@@ -22,4 +22,6 @@ public:
 
 	UPROPERTY()
 		UTestWidget* TestWidget;
+
+	//void BeginPlay();
 };

@@ -13,7 +13,7 @@ void UTestWidget::TestPasswordLog()
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *FPassword);
 }
 
-void UTestWidget::LoginButton(const FText& Text/*const FText& Text, ETextCommit::Type CommitMethod*/)
+void UTestWidget::OnLoginButtonClicked(/*const FText& Text*//*const FText& Text, ETextCommit::Type CommitMethod*/)
 //{
 //    if (Id && Id->HasKeyboardFocus())
 //    {
@@ -23,7 +23,7 @@ void UTestWidget::LoginButton(const FText& Text/*const FText& Text, ETextCommit:
 //    {
 //        FPassword = Text.ToString();
 //    }
-//
+// 
 //    // Check if both FID and FPassword are not empty before converting to JSON
 //    if (!FID.IsEmpty() && !FPassword.IsEmpty())
 //    {
@@ -42,51 +42,87 @@ void UTestWidget::LoginButton(const FText& Text/*const FText& Text, ETextCommit:
 //
 //}
 {
+    // Id와 Password 입력값 저장
     if (Id && Id->HasKeyboardFocus())
     {
-        FID = Text.ToString();
+        FID = Id->GetText().ToString();
     }
     else if (Password && Password->HasKeyboardFocus())
     {
-        FPassword = Text.ToString();
+        FPassword = Password->GetText().ToString();
     }
 
-    // Create json object
+    // JSON 데이터 생성
     TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject);
     JsonObject->SetStringField(TEXT("email"), FID);
     JsonObject->SetStringField(TEXT("password"), FPassword);
 
-    // Convert json to string
+    // JSON 데이터를 문자열로 변환
     FString JsonString;
     TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&JsonString);
     FJsonSerializer::Serialize(JsonObject.ToSharedRef(), JsonWriter);
 
-    UE_LOG(LogTemp, Warning, TEXT("JSON: %s"), *JsonString);
-
-    // Create http request
+    // HTTP 요청 생성 및 설정
     TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
-    HttpRequest->SetVerb("POST");
+    HttpRequest->SetVerb(TEXT("POST"));
     HttpRequest->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
     HttpRequest->SetURL(TEXT("http://192.168.0.117:8080/api/login"));
     HttpRequest->SetContentAsString(JsonString);
 
-    // Bind response function
+    // 요청 완료 시 호출할 함수 설정
     HttpRequest->OnProcessRequestComplete().BindUObject(this, &UTestWidget::HandleHttpRequestComplete);
 
-    // Send request
+    // 요청 전송
     HttpRequest->ProcessRequest();
 }
 
-void UTestWidget::SignUpButton(const FText& Text/*const FText& Text, ETextCommit::Type CommitMethod*/)
+//EditableText 입력값을 JSON파싱
+//void UTestWidget::SignUpButton(const FText& Text/*const FText& Text, ETextCommit::Type CommitMethod*/)
+//{
+//    // Id와 Password 입력값 저장
+//    if (Id && Id->HasKeyboardFocus())
+//    {
+//        FID = Text.ToString();
+//    }
+//    else if (Password && Password->HasKeyboardFocus())
+//    {
+//        FPassword = Text.ToString();
+//    }
+//
+//    // JSON 데이터 생성
+//    TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject);
+//    JsonObject->SetStringField(TEXT("email"), FID);
+//    JsonObject->SetStringField(TEXT("password"), FPassword);
+//
+//    // JSON 데이터를 문자열로 변환
+//    FString JsonString;
+//    TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&JsonString);
+//    FJsonSerializer::Serialize(JsonObject.ToSharedRef(), JsonWriter);
+//
+//    // HTTP 요청 생성 및 설정
+//    TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
+//    HttpRequest->SetVerb(TEXT("POST"));
+//    HttpRequest->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+//    HttpRequest->SetURL(TEXT("http://192.168.0.117:8080/api/signup"));
+//    HttpRequest->SetContentAsString(JsonString);
+//
+//    // 요청 완료 시 호출할 함수 설정
+//    HttpRequest->OnProcessRequestComplete().BindUObject(this, &UTestWidget::HandleHttpRequestComplete);
+//
+//    // 요청 전송
+//    HttpRequest->ProcessRequest();
+//}
+
+void UTestWidget::OnSignUpButtonClicked()
 {
     // Id와 Password 입력값 저장
     if (Id && Id->HasKeyboardFocus())
     {
-        FID = Text.ToString();
+        FID = Id->GetText().ToString();
     }
     else if (Password && Password->HasKeyboardFocus())
     {
-        FPassword = Text.ToString();
+        FPassword = Password->GetText().ToString();
     }
 
     // JSON 데이터 생성

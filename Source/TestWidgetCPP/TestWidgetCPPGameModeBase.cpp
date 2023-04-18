@@ -5,15 +5,20 @@
 
 ATestWidgetCPPGameModeBase::ATestWidgetCPPGameModeBase()
 {		
-    // UTestWidget 객체 생성
-    TestWidget = CreateDefaultSubobject<UTestWidget>(TEXT("UMG_Login"));
-
-    // UTestWidget을 뷰포트에 추가
-    if (TestWidget)
-    {
-        TestWidget->AddToViewport();
-    }
+    /*BeginPlay();*/
 }
+
+//void ATestWidgetCPPGameModeBase::BeginPlay()
+//{
+//    Super::BeginPlay();
+//
+//    // Widget Blueprint 클래스 로딩
+//    static ConstructorHelpers::FClassFinder<UUserWidget> WidgetClass(TEXT("/Game/UI/TestWidgetCPP.TestWidget_C"));
+//    if (TestWidget)
+//    {
+//        TestWidget->AddToViewport(0);
+//    }
+//}
 
 //void ATestWidgetCPPGameModeBase::BeginPlay()
 //{

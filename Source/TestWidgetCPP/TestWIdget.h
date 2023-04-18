@@ -47,10 +47,13 @@ public:
         void TestPasswordLog();
 
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
-        void LoginButton(const FText& Text/*, ETextCommit::Type CommitMethod*/ );
+        void OnLoginButtonClicked(/*const FText& Text*//*, ETextCommit::Type CommitMethod*/ );
+
+    //UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
+    //    void SignUpButton(const FText& Text/*, ETextCommit::Type CommitMethod*/ );
 
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
-        void SignUpButton(const FText& Text/*, ETextCommit::Type CommitMethod*/ );
+        void OnSignUpButtonClicked();
 
         void HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
 };
