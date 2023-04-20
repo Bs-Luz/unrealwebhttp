@@ -5,6 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "TestWidget.h"
+#include "Components/Widget.h"
+#include "Blueprint/UserWidget.h"
+#include "Engine/GameViewportClient.h"
+#include "Engine/StreamableManager.h"
 #include "TestWidgetCPPGameModeBase.generated.h"
 
 /**
@@ -18,10 +22,5 @@ class TESTWIDGETCPP_API ATestWidgetCPPGameModeBase : public AGameModeBase
 public:
 	ATestWidgetCPPGameModeBase();
 
-    //void ATestWidgetCPPGameModeBase::BeginPlay();
-
-	UPROPERTY()
-		UTestWidget* TestWidget;
-
-	//void BeginPlay();
+	virtual void BeginPlay();
 };

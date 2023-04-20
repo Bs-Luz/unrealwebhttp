@@ -22,6 +22,7 @@ class TESTWIDGETCPP_API UTestWidget : public UUserWidget
     GENERATED_BODY()
 
 public:
+
     UPROPERTY(BlueprintReadWrite, Category = Test)
         UEditableText* Id;
 
@@ -46,8 +47,10 @@ public:
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
         void TestPasswordLog();
 
+        void OnTextCommitted(const FText& NewText, ETextCommit::Type CommitInfo);
+
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
-        void OnLoginButtonClicked(/*const FText& Text*//*, ETextCommit::Type CommitMethod*/ );
+        void OnLoginButtonClicked(/*, ETextCommit::Type CommitMethod*/ );
 
     //UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
     //    void SignUpButton(const FText& Text/*, ETextCommit::Type CommitMethod*/ );
@@ -56,4 +59,6 @@ public:
         void OnSignUpButtonClicked();
 
         void HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
+
+        void OnClicked();
 };

@@ -13,8 +13,8 @@ void UTestWidget::TestPasswordLog()
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *FPassword);
 }
 
-void UTestWidget::OnLoginButtonClicked(/*const FText& Text*//*const FText& Text, ETextCommit::Type CommitMethod*/)
-//{
+void UTestWidget::OnLoginButtonClicked(/*const FText& Text, ETextCommit::Type CommitMethod*/)
+//{이건 Text값 확인용
 //    if (Id && Id->HasKeyboardFocus())
 //    {
 //        FID = Text.ToString();
@@ -42,6 +42,8 @@ void UTestWidget::OnLoginButtonClicked(/*const FText& Text*//*const FText& Text,
 //
 //}
 {
+    UE_LOG(LogTemp, Warning, TEXT("로그인 버튼이야"));
+
     // Id와 Password 입력값 저장
     if (Id && Id->HasKeyboardFocus())
     {
@@ -78,7 +80,7 @@ void UTestWidget::OnLoginButtonClicked(/*const FText& Text*//*const FText& Text,
 
 //EditableText 입력값을 JSON파싱
 //void UTestWidget::SignUpButton(const FText& Text/*const FText& Text, ETextCommit::Type CommitMethod*/)
-//{
+//{텍스트값 확인용
 //    // Id와 Password 입력값 저장
 //    if (Id && Id->HasKeyboardFocus())
 //    {
