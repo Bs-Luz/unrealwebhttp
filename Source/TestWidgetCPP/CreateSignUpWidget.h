@@ -4,18 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "TestWIdget.h"
-#include "UMG_SignUp.generated.h"
+#include "CreateSignUpWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TESTWIDGETCPP_API UUMG_SignUp : public UTestWidget
+class TESTWIDGETCPP_API UCreateSignUpWidget : public UTestWidget
 {
 	GENERATED_BODY()
-	
-public:
-	void NativeConstruct();
+		void NativeConstruct();
 
-	/*void BackButtonClicked();*/
+	void BackButtonClicked();
 };

@@ -47,7 +47,7 @@ public:
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
         void TestPasswordLog();
 
-        void OnTextCommitted(const FText& NewText, ETextCommit::Type CommitInfo);
+        /*void OnTextCommitted(const FText& NewText, ETextCommit::Type CommitInfo);*/
 
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
         void OnLoginButtonClicked(/*, ETextCommit::Type CommitMethod*/ );
@@ -57,6 +57,12 @@ public:
 
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
         void OnSignUpButtonClicked();
+
+    UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
+        void OnCreateSignUpButtonClicked();
+
+    UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
+        void OnBackButtonClicked();
 
         void HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
 

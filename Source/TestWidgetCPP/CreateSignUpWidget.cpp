@@ -1,29 +1,29 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UMG_SignUp.h"
+#include "CreateSignUpWidget.h"
 #include "UMG_Login.h"
 
-void UUMG_SignUp::NativeConstruct()
+void UCreateSignUpWidget::NativeConstruct()
 {
-    //Super::NativeConstruct();
+    Super::NativeConstruct();
 
-    //// 버튼 위젯 생성하기
-    //UButton* CreateSignUpButton = Cast<UButton>(GetWidgetFromName(TEXT("CreateSignUpButton")));
+    // 버튼 위젯 생성하기
+    UButton* CreateSignUpButton = Cast<UButton>(GetWidgetFromName(TEXT("CreateSignUpButton")));
 
-    //UButton* BackButton = Cast<UButton>(GetWidgetFromName(TEXT("BackButton")));
-    //// 버튼 이벤트 핸들러 등록하기
-    //if (CreateSignUpButton)
-    //{
-    //    CreateSignUpButton->OnClicked.AddDynamic(this, &UTestWidget::OnSignUpButtonClicked);
-    //}
-    //else if (BackButton)
-    //{
-    //    BackButton->OnClicked.AddDynamic(this, &UUMG_SignUp::OnBackButtonClicked);
-    //}
+    UButton* BackButton = Cast<UButton>(GetWidgetFromName(TEXT("BackButton")));
+    // 버튼 이벤트 핸들러 등록하기
+    if (CreateSignUpButton)
+    {
+        CreateSignUpButton->OnClicked.AddDynamic(this, &UTestWidget::OnSignUpButtonClicked);
+    }
+    if (BackButton)
+    {
+        BackButton->OnClicked.AddDynamic(this, &UCreateSignUpWidget::OnBackButtonClicked);
+    }
 }
 
-//void UUMG_SignUp::BackButtonClicked()
+//void UCreateSignUpWidget::BackButtonClicked()
 //{
 //    UE_LOG(LogTemp, Warning, TEXT("뒤로가기 버튼이야"));
 //

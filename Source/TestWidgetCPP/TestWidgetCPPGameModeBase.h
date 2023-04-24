@@ -22,5 +22,7 @@ class TESTWIDGETCPP_API ATestWidgetCPPGameModeBase : public AGameModeBase
 public:
 	ATestWidgetCPPGameModeBase();
 
-	virtual void BeginPlay();
+	void CraeteSignUpViewPort();
+
+	/*virtual void BeginPlay();*/
 };

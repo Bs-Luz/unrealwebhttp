@@ -17,5 +17,9 @@ class TESTWIDGETCPP_API UUMG_Login : public UTestWidget
 public:
 	void NativeConstruct();
 
-	void CreateSignUpViewport();
+	
+	/*void OnCreateSignUpButtonClicked();*/
+
+	//UFUNCTION()
+	//void CreateSignUpViewport();
 };

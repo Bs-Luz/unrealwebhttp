@@ -2,6 +2,9 @@
 
 
 #include "TestWidget.h"
+#include "CreateSignUpWidget.h"
+#include "UMG_Login.h"
+#include "TestWidgetCPPGameModeBase.h"
 
 void UTestWidget::TestIDLog()
 {
@@ -42,7 +45,7 @@ void UTestWidget::OnLoginButtonClicked(/*const FText& Text, ETextCommit::Type Co
 //
 //}
 {
-    UE_LOG(LogTemp, Warning, TEXT("로그인 버튼이야"));
+    UE_LOG(LogTemp, Warning, TEXT("로그인 버튼 이벤트야"));
 
     // Id와 Password 입력값 저장
     if (Id && Id->HasKeyboardFocus())
@@ -117,6 +120,8 @@ void UTestWidget::OnLoginButtonClicked(/*const FText& Text, ETextCommit::Type Co
 
 void UTestWidget::OnSignUpButtonClicked()
 {
+    UE_LOG(LogTemp, Warning, TEXT("회원가입 하는 버튼 이벤트야"));
+
     // Id와 Password 입력값 저장
     if (Id && Id->HasKeyboardFocus())
     {
@@ -149,6 +154,71 @@ void UTestWidget::OnSignUpButtonClicked()
 
     // 요청 전송
     HttpRequest->ProcessRequest();
+}
+
+void UTestWidget::OnCreateSignUpButtonClicked()
+{
+    // 현재 위젯 제거하기
+    RemoveFromParent();
+
+    UE_LOG(LogTemp, Warning, TEXT("회원가입창으로 넘어가는 버튼 이벤트야"));
+
+    /*CraeteSignUpViewPort();*/
+
+    //// UMG_SignUp 위젯 생성하기
+    static ConstructorHelpers::FClassFinder<UCreateSignUpWidget> SignUpWidgetClass(TEXT("/Game/Widget/CreateSignUpWidget"));
+    if (SignUpWidgetClass.Succeeded())
+    {
+        UCreateSignUpWidget* SignUpWidget = CreateWidget<UCreateSignUpWidget>(GetWorld(), SignUpWidgetClass.Class);
+        if (SignUpWidget != nullptr)
+        {
+            // 생성된 위젯이 화면에 추가될 수 있도록 AddToViewport() 함수를 호출합니다.
+            SignUpWidget->AddToViewport();
+        }
+        else
+        {
+            // 위젯 생성에 실패한 경우, 에러 메시지를 출력합니다.
+            UE_LOG(LogTemp, Error, TEXT("Failed to create UMG_SignUp widget."));
+        }
+    }
+    else
+    {
+        // UUMG_SignUp 클래스가 로드되지 않았을 경우, 에러 메시지를 출력합니다.
+        UE_LOG(LogTemp, Error, TEXT("Failed to find UMG_SignUp class."));
+    }
+}
+
+void UTestWidget::OnBackButtonClicked()
+{
+    
+
+    // 현재 위젯 제거하기
+    RemoveFromParent();
+
+    UE_LOG(LogTemp, Warning, TEXT("뒤로가기 버튼이야"));
+
+    // UMG_Login 위젯 생성하기
+    static ConstructorHelpers::FClassFinder<UUMG_Login> LoginWidgetClass(TEXT("/Game/Widget/UMG_Login"));
+    if (LoginWidgetClass.Succeeded())
+    {
+        UUMG_Login* LoginWidget = CreateWidget<UUMG_Login>(GetWorld(), LoginWidgetClass.Class);
+
+        // UMG_Login 위젯 화면에 추가하기
+        if (LoginWidget != nullptr)
+        {
+            LoginWidget->AddToViewport();
+
+            UE_LOG(LogTemp, Warning, TEXT("로그인 위젯 뜸"));
+        }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("로그인 위젯 안뜸"));
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("그냥 다시 해"));
+    }
 }
 
 void UTestWidget::HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess)
