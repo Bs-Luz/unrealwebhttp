@@ -4,6 +4,32 @@
 #include "CreateSignUpWidget.h"
 #include "UMG_Login.h"
 
+UCreateSignUpWidget::UCreateSignUpWidget()
+{
+    //    // UMG_Login 위젯 생성하기
+    static ConstructorHelpers::FClassFinder<UUMG_Login> LoginWidgetClass(TEXT("/Game/Widget/UMG_Login"));
+    if (LoginWidgetClass.Succeeded())
+    {
+        UUMG_Login* LoginWidget = CreateWidget<UUMG_Login>(GetWorld(), LoginWidgetClass.Class);
+
+        // UMG_Login 위젯 화면에 추가하기
+        if (LoginWidget != nullptr)
+        {
+            LoginWidget->AddToViewport();
+
+            UE_LOG(LogTemp, Warning, TEXT("로그인 위젯 뜸"));
+        }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("로그인 위젯 안뜸"));
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("그냥 다시 해"));
+    }
+}
+
 void UCreateSignUpWidget::NativeConstruct()
 {
     Super::NativeConstruct();
@@ -19,7 +45,7 @@ void UCreateSignUpWidget::NativeConstruct()
     }
     if (BackButton)
     {
-        BackButton->OnClicked.AddDynamic(this, &UCreateSignUpWidget::OnBackButtonClicked);
+        BackButton->OnClicked.AddDynamic(this, &UTestWidget::OnBackButtonClicked);
     }
 }
 

@@ -37,9 +37,10 @@ void UUMG_Login::NativeConstruct()
 //    UE_LOG(LogTemp, Warning, TEXT("회원가입창으로 넘어가는 버튼 이벤트야"));
 //
 //    // UMG_SignUp 위젯 생성하기
+//
+//    
+//
 //    static ConstructorHelpers::FClassFinder<UCreateSignUpWidget> SignUpWidgetClass(TEXT("/Game/Widget/CreateSignUpWidget"));
-//    if (SignUpWidgetClass.Succeeded())
-//    {
 //        UCreateSignUpWidget* SignUpWidget = CreateWidget<UCreateSignUpWidget>(GetWorld(), SignUpWidgetClass.Class);
 //        if (SignUpWidget != nullptr)
 //        {
@@ -51,12 +52,6 @@ void UUMG_Login::NativeConstruct()
 //            // 위젯 생성에 실패한 경우, 에러 메시지를 출력합니다.
 //            UE_LOG(LogTemp, Error, TEXT("Failed to create UMG_SignUp widget."));
 //        }
-//    }
-//    else
-//    {
-//        // UUMG_SignUp 클래스가 로드되지 않았을 경우, 에러 메시지를 출력합니다.
-//        UE_LOG(LogTemp, Error, TEXT("Failed to find UMG_SignUp class."));
-//    }
 //}
 
 //void UUMG_Login::CreateSignUpViewport()

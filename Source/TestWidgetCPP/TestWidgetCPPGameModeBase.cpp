@@ -33,33 +33,33 @@ ATestWidgetCPPGameModeBase::ATestWidgetCPPGameModeBase()
         UE_LOG(LogTemp, Warning, TEXT("그냥 다시 해"));
     }
 
-    CraeteSignUpViewPort();
+    /*CraeteSignUpViewPort();*/
 }
 
-void ATestWidgetCPPGameModeBase::CraeteSignUpViewPort()
-{
-    // UMG_SignUp 위젯 생성하기
-    static ConstructorHelpers::FClassFinder<UCreateSignUpWidget> SignUpWidgetClass(TEXT("/Game/Widget/CreateSignUpWidget"));
-    if (SignUpWidgetClass.Succeeded())
-    {
-        UCreateSignUpWidget* SignUpWidget = CreateWidget<UCreateSignUpWidget>(GetWorld(), SignUpWidgetClass.Class);
-        if (SignUpWidget != nullptr)
-        {
-            // 생성된 위젯이 화면에 추가될 수 있도록 AddToViewport() 함수를 호출합니다.
-            SignUpWidget->AddToViewport();
-        }
-        else
-        {
-            // 위젯 생성에 실패한 경우, 에러 메시지를 출력합니다.
-            UE_LOG(LogTemp, Error, TEXT("Failed to create UMG_SignUp widget."));
-        }
-    }
-    else
-    {
-        // UUMG_SignUp 클래스가 로드되지 않았을 경우, 에러 메시지를 출력합니다.
-        UE_LOG(LogTemp, Error, TEXT("Failed to find UMG_SignUp class."));
-    }    
-}
+//void ATestWidgetCPPGameModeBase::CraeteSignUpViewPort()
+//{
+//    // UMG_SignUp 위젯 생성하기
+//    static ConstructorHelpers::FClassFinder<UCreateSignUpWidget> SignUpWidgetClass(TEXT("/Game/Widget/CreateSignUpWidget"));
+//    if (SignUpWidgetClass.Succeeded())
+//    {
+//        UCreateSignUpWidget* SignUpWidget = CreateWidget<UCreateSignUpWidget>(GetWorld(), SignUpWidgetClass.Class);
+//        if (SignUpWidget != nullptr)
+//        {
+//            // 생성된 위젯이 화면에 추가될 수 있도록 AddToViewport() 함수를 호출합니다.
+//            SignUpWidget->AddToViewport();
+//        }
+//        else
+//        {
+//            // 위젯 생성에 실패한 경우, 에러 메시지를 출력합니다.
+//            UE_LOG(LogTemp, Error, TEXT("Failed to create UMG_SignUp widget."));
+//        }
+//    }
+//    else
+//    {
+//        // UUMG_SignUp 클래스가 로드되지 않았을 경우, 에러 메시지를 출력합니다.
+//        UE_LOG(LogTemp, Error, TEXT("Failed to find UMG_SignUp class."));
+//    }    
+//}
 
 //void ATestWidgetCPPGameModeBase::BeginPlay()
 //{

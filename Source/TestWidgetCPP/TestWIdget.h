@@ -52,6 +52,10 @@ public:
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
         void OnLoginButtonClicked(/*, ETextCommit::Type CommitMethod*/ );
 
+    void HandleLoginHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
+
+    void ConnectToDedicatedServer(const FString& ServerIP, int32 ServerPort);
+
     //UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
     //    void SignUpButton(const FText& Text/*, ETextCommit::Type CommitMethod*/ );
 

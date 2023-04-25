@@ -13,6 +13,11 @@ UCLASS()
 class TESTWIDGETCPP_API UCreateSignUpWidget : public UTestWidget
 {
 	GENERATED_BODY()
+
+public:
+
+		UCreateSignUpWidget();
+
 		void NativeConstruct();
 
 	void BackButtonClicked();
