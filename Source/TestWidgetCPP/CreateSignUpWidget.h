@@ -16,9 +16,10 @@ class TESTWIDGETCPP_API UCreateSignUpWidget : public UTestWidget
 
 public:
 
-		UCreateSignUpWidget();
+		/*UCreateSignUpWidget();*/
 
 		void NativeConstruct();
 
-	void BackButtonClicked();
+	/*	UFUNCTION(BlueprintCallable, Category = Test)
+			void BackButtonClicked();*/
 };

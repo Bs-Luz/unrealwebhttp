@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/EditableText.h"
 #include "Components/Button.h"
+#include "UObject/ConstructorHelpers.h"
 #include "Json.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
