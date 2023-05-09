@@ -4,6 +4,11 @@
 #include "TestWidget.h"
 #include "CreateSignUpWidget.h"
 #include "UMG_Login.h"
+#include "Sockets.h"
+#include "SocketSubsystem.h"
+#include "Interfaces/IPv4/IPv4Address.h"
+#include "IPAddress.h"
+//#include <netinet/in.h>
 #include "TestWidgetCPPGameModeBase.h"
 
 void UTestWidget::TestIDLog()
@@ -45,6 +50,9 @@ void UTestWidget::OnLoginButtonClicked(/*const FText& Text, ETextCommit::Type Co
 //
 //}
 {
+    // fsocket 초기화
+    
+
     UE_LOG(LogTemp, Warning, TEXT("로그인 버튼 이벤트야"));
 
     // Id와 Password 입력값 저장
@@ -79,7 +87,8 @@ void UTestWidget::OnLoginButtonClicked(/*const FText& Text, ETextCommit::Type Co
 
     // 요청 전송
     HttpRequest->ProcessRequest();
-}
+
+    }
 
 //void UTestWidget::HandleLoginHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess)
 //{
@@ -136,36 +145,6 @@ void UTestWidget::OnLoginButtonClicked(/*const FText& Text, ETextCommit::Type Co
 //            }
 //        }
 //    
-//}
-
-//void UTestWidget::ConnectToDedicatedServer(const FString& ServerIP, int32 ServerPort)
-//{
-//    // 접속할 서버 주소
-//    TSharedPtr<FInternetAddr> RemoteAddr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
-//
-//    bool bIsValid;
-//    RemoteAddr->SetIp(*IPAddress, bIsValid);
-//    RemoteAddr->SetPort(PortNumber);
-//
-//    if (!bIsValid)
-//    {
-//        UE_LOG(LogTemp, Error, TEXT("Invalid IP Address: %s"), *IPAddress);
-//        return;
-//    }
-//
-//    // 소켓 생성
-//    FSocket* Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), true);
-//
-//    // 비동기 접속 시도
-//    if (Socket->Connect(*RemoteAddr))
-//    {
-//        UE_LOG(LogTemp, Warning, TEXT("서버 접속 성공!"));
-//        // TODO: 서버와 통신하는 로직 작성
-//    }
-//    else
-//    {
-//        UE_LOG(LogTemp, Error, TEXT("서버 접속 실패: %s:%d"), *IPAddress, PortNumber);
-//    }
 //}
 
 //EditableText 입력값을 JSON파싱
@@ -241,6 +220,8 @@ void UTestWidget::OnSignUpButtonClicked()
 
     // 요청 전송
     HttpRequest->ProcessRequest();
+
+    
 }
 
 void UTestWidget::OnCreateSignUpButtonClicked()
@@ -340,16 +321,63 @@ void UTestWidget::HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpRespon
 
             if (bLoginSuccess)
             {
-                UE_LOG(LogTemp, Warning, TEXT("Login success: %s"), *message);
+                UE_LOG(LogTemp, Warning, TEXT("로그인 성공!!: %s"), *message);
+
+                ConnectToDedicatedServer();
             }
             else
             {
-                UE_LOG(LogTemp, Warning, TEXT("Login failed: %s"), *message);
+                UE_LOG(LogTemp, Warning, TEXT("로그인 실패...: %s"), *message);
             }
         }
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("Http request failed"));
+        UE_LOG(LogTemp, Warning, TEXT("웹서버에서 응답을 가져올 수 없어"));
+
+        ConnectToDedicatedServer();
+    }
+}
+
+bool UTestWidget::ConnectToDedicatedServer()
+{
+    // TCP 소켓 생성
+    FSocket* Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), false);
+
+    // TCP 서버의 IP 주소와 포트 번호로 주소를 설정
+    TSharedPtr<FInternetAddr> Addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
+    bool bIsValid;
+    Addr->SetIp(*SERVER_IP_ADDRESS, bIsValid);
+    Addr->SetPort(SERVER_PORT_NUMBER);
+
+    // TCP 서버에 접속 시도
+    if (!Socket->Connect(*Addr))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("TCP 서버에 접속할 수 없어"));
+        return false;
+    }
+
+    // TCP 서버에서 데디서버의 정보 수신
+    FString DedicateServerInfo;
+    int32 ReceivedSize = 0;
+    while (ReceivedSize == 0)
+    {
+        if (Socket->Recv(reinterpret_cast<uint8*>(DedicateServerInfo.GetCharArray().GetData()), DedicateServerInfo.Len(), ReceivedSize))
+        {
+            DedicateServerInfo = DedicateServerInfo.Left(ReceivedSize);
+        }
+    }
+
+    // 데디서버에 접속
+    if (DedicateServerInfo.Contains(CLIENT_INFO))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("데디서버에 접속했어"));
+        
+        return true;
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("데디서버에 접속 할 수 없어"));
+        return false;
     }
 }

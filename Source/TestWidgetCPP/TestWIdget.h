@@ -23,7 +23,6 @@ class TESTWIDGETCPP_API UTestWidget : public UUserWidget
     GENERATED_BODY()
 
 public:
-
     UPROPERTY(BlueprintReadWrite, Category = Test)
         UEditableText* Id;
 
@@ -53,10 +52,6 @@ public:
     UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
         void OnLoginButtonClicked(/*, ETextCommit::Type CommitMethod*/ );
 
-    void HandleLoginHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
-
-    void ConnectToDedicatedServer(const FString& ServerIP, int32 ServerPort);
-
     //UFUNCTION(BlueprintCallable, meta = (keywords = "Test"))
     //    void SignUpButton(const FText& Text/*, ETextCommit::Type CommitMethod*/ );
 
@@ -71,5 +66,13 @@ public:
 
         void HandleHttpRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bSuccess);
 
-        void OnClicked();
+        bool ConnectToDedicatedServer();
+
+//private:
+
+    const FString SERVER_IP_ADDRESS = TEXT("127.0.0.1");
+
+    const int32 SERVER_PORT_NUMBER = 8080;
+
+    const FString CLIENT_INFO = TEXT("haha");
 };

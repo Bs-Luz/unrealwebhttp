@@ -8,7 +8,7 @@ public class TestWidgetCPP : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Json","JsonUtilities", "HTTP" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Json","JsonUtilities", "HTTP", "Sockets" });
 
 		//PrivateDependencyModuleNames.AddRange(new string[] {  });
 
